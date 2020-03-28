@@ -1,7 +1,7 @@
 const initialState = {
   contacts: [],
   users:[],
-  loading: false,
+  loading: null,
   login: null,
 }
 

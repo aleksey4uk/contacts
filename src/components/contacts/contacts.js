@@ -2,11 +2,21 @@ import React, {Component} from 'react';
 import { Table, Tag } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import hocSwapiServiceContext from '../hoc/hoc-swapi-service';
 import './contacts.css';
 
 class Contacts extends Component {
+  componentDidMount() {
+    console.log(this.props.value);
+    const {getData} = this.props.value;
+    getData()
+      .then((res)=>this.props.load(res))
+      .then(()=>this.props.complete())
+  }
 
   render() {
+    if(!this.props.login) return <Redirect to='/login'/>;
+    if(this.props.loading) return <h1>Загрузка</h1>
     console.log(this.props)
     const {contacts:data} = this.props;
     const columns = [
@@ -54,8 +64,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    edit: (payload) => dispatch({type: 'EDIT-CONTACT', payload})
+    edit: (payload) => dispatch({type: 'EDIT-CONTACT', payload}),
+    load: (payload) => dispatch({type: 'LOAD', payload}),
+    complete: () => dispatch({type: 'COMPLETE'}),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
+export default connect(mapStateToProps, mapDispatchToProps)(hocSwapiServiceContext(Contacts));
