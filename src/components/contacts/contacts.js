@@ -4,33 +4,11 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './contacts.css';
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    email: 32,
-    number: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    email: 42,
-    number: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    email: 32,
-    number: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-
 class Contacts extends Component {
 
   render() {
+    console.log(this.props)
+    const {contacts:data} = this.props;
     const columns = [
       {
         title: 'Имя',

@@ -22,24 +22,23 @@ const tailLayout = {
 class Login extends Component {
 
   loadUsers(values) {
+    console.log(this.props.value)
     //1. Запускаем загрузку
-    const {getData} = this.props.value;
-    getData()
-      .then((data) => {
-        this.props.load(data)
-      })
-      .then(() => this.props.complete())
+    const {getUsers} = this.props.value;
+    getUsers()
+      .then((res) => this.props.onLoadUsers(res))
       .then(() => this.props.onLogin(values))
-    //2. Если загрузка успешна, меняем флаг загрузки на false,
-    //this.props.complete();
   }
 
   render() {
     const { props } = this;
     const onFinish = values => this.loadUsers(values);
     const onFinishFailed = errorInfo => console.log('Failed:', errorInfo);
+    let pass;
+    if(props.login===false) pass = (<p>Не верный пароль</p>);
+    if(props.loading) return <h1>Загрузка...</h1>
     if(props.login) return <Redirect to='/' />;
-
+    
     return (
       <div className="forms">
         <Form
@@ -87,7 +86,6 @@ class Login extends Component {
             </Button>
           </Form.Item>
         </Form>
-        <button onClick={(event)=>props.loginIn(event)}>залогиниться</button>
       </div>
     );
   }
@@ -95,8 +93,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    load: (payload) => dispatch({type: 'LOAD', payload}),
-    complete: () => dispatch({type: 'COMPLETE'}),
+    onLoadUsers: (payload) => dispatch({type: 'ON-LOGIN-LOAD', payload}),
     onLogin: (payload) => dispatch({type: 'ON-LOGIN', payload})
   }
 }

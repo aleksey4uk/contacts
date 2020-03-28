@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Contacts from '../contacts';
 
 class HomePage extends Component {
 
@@ -11,7 +12,7 @@ class HomePage extends Component {
     }
     return (
       <div className="home">
-        <h1>Здесь должна быть секретная страница...</h1>
+        <Contacts/>
       </div>
     )
   }

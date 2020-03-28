@@ -1,7 +1,8 @@
 const initialState = {
-  users: [],
+  contacts: [],
+  users:[],
   loading: false,
-  login: false,
+  login: null,
 }
 
 const reducer = (state=initialState, action) => {
@@ -10,22 +11,40 @@ const reducer = (state=initialState, action) => {
       console.log('начинаем загрузку...')
       return {
         ...state,
-        users: action.payload,
+        contacts: action.payload,
         loading: true};
 
     case 'COMPLETE':
       console.log('загрузка завершена', state.users);
       return {
         ...state,
-        users: state.users,
+        contacts: state.contacts,
         loading: false,
+      }
+
+    case 'ON-LOGIN-LOAD':
+      console.log('логины и пароли загружены')
+      return {
+        ...state,
+        loading: true,
+        users: action.payload,
       }
 
     case 'ON-LOGIN':
       console.log('Данные попали в reducer ', action.payload);
+      let idx = state.users.findIndex((item) => item.name === action.payload.username && item.password === action.payload.password);
+      console.log(idx)
+      if (idx !== -1) {
+        return {
+          ...state,
+          loading: false,
+          login: true,
+        }
+      }
       return {
         ...state,
-        login: true,
+        login: false,
+        loading: false,
       }
 
     case 'EDIT-CONTACT':
