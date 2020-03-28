@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table, Tag } from 'antd';
 import { Redirect } from 'react-router-dom';
+import EditContact from '../edit-contact';
 import { connect } from 'react-redux';
 import hocSwapiServiceContext from '../hoc/hoc-swapi-service';
 import './contacts.css';
@@ -51,6 +52,7 @@ class Contacts extends Component {
     return (
       <div>
         <Table columns={columns} dataSource={data} />
+        <EditContact />
       </div>
     )
   }

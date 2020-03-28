@@ -1,0 +1,10 @@
+.edit-contact {
+  border: 1px solid black;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  z-index: 100000 !important;
+  left: 0;
+  top: 0;
+  background-color: red;
+}
