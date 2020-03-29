@@ -6,7 +6,6 @@ import Contacts from '../contacts';
 class HomePage extends Component {
 
   render() {
-    console.log(this.props)
     if(!this.props.login) {
       return <Redirect to="/login"/>
     }

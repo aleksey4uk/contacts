@@ -22,7 +22,6 @@ const tailLayout = {
 class Login extends Component {
 
   loadUsers(values) {
-    console.log(this.props.value)
     //1. Запускаем загрузку
     const {getUsers} = this.props.value;
     getUsers()
@@ -38,7 +37,7 @@ class Login extends Component {
     if(props.login===false) pass = (<p>Не верный пароль</p>);
     if(props.loading) return <h1>Загрузка...</h1>
     if(props.login) return <Redirect to='/' />;
-    
+
     return (
       <div className="forms">
         <Form

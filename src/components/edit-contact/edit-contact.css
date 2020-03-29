@@ -1,10 +1,28 @@
 .edit-contact {
-  border: 1px solid black;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
+  display: none;
   position: absolute;
-  z-index: 100000 !important;
-  left: 0;
   top: 0;
-  background-color: red;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 100000 !important;
+}
+
+.edit-contact .margin {
+  margin-bottom: 10px;
+}
+
+.edit-contact .btn {
+  margin-top: 10px;
+}
+
+.edit-contact .btn button:nth-child(1) {
+  margin-right: 10px;
+}
+
+.yes {
+  display: block;
 }

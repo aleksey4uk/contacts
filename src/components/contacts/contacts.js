@@ -8,7 +8,6 @@ import './contacts.css';
 
 class Contacts extends Component {
   componentDidMount() {
-    console.log(this.props.value);
     const {getData} = this.props.value;
     getData()
       .then((res)=>this.props.load(res))
@@ -18,7 +17,6 @@ class Contacts extends Component {
   render() {
     if(!this.props.login) return <Redirect to='/login'/>;
     if(this.props.loading) return <h1>Загрузка</h1>
-    console.log(this.props)
     const {contacts:data} = this.props;
     const columns = [
       {

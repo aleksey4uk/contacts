@@ -1,5 +1,6 @@
 const initialState = {
   contacts: [],
+  editContact: null,
   users:[],
   loading: null,
   login: null,
@@ -8,14 +9,12 @@ const initialState = {
 const reducer = (state=initialState, action) => {
   switch (action.type) {
     case 'LOAD':
-      console.log('начинаем загрузку...')
       return {
         ...state,
         contacts: action.payload,
         loading: true};
 
     case 'COMPLETE':
-      console.log('загрузка завершена', state.users);
       return {
         ...state,
         contacts: state.contacts,
@@ -23,7 +22,6 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'ON-LOGIN-LOAD':
-      console.log('логины и пароли загружены')
       return {
         ...state,
         loading: true,
@@ -31,9 +29,7 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'ON-LOGIN':
-      console.log('Данные попали в reducer ', action.payload);
       let idx = state.users.findIndex((item) => item.name === action.payload.username && item.password === action.payload.password);
-      console.log(idx)
       if (idx !== -1) {
         return {
           ...state,
@@ -49,14 +45,40 @@ const reducer = (state=initialState, action) => {
 
     case 'EDIT-CONTACT':
       console.log('edit', action.payload);
+
+      let idxContact = state.contacts.findIndex(item=>item.name == action.payload.name);
       return {
-        ...state
+        ...state,
+        editContact: action.payload,
+      }
+
+    case 'EDIT-CONTACT-ITEM':
+      console.log('Редактируем контакт', action.payload.target.value);
+      let name = action.payload.target.id === 'name' ? action.payload.target.value : state.editContact.name;
+      let number = action.payload.target.id === 'number' ? action.payload.target.value : state.editContact.number;
+      let email = action.payload.target.id === 'email' ? action.payload.target.value : state.editContact.email;
+      console.log(state.editContact);
+      return {
+        ...state,
+        editContact: {
+          ...state.editContact,
+          name,
+          number,
+          email,
+        }
       }
 
     case 'EDIT-CONTACT-COMPLETE':
-      console.log("Новые данные такие: ", action.payload);
+      console.log(state.editContact.key);
+      let idxC = state.contacts.findIndex(item=>item.key == state.editContact.key);
       return {
         ...state,
+        contacts: [
+          ...state.contacts.slice(0, idxC),
+        state.editContact,
+          ...state.contacts.slice(idxC+1)
+        ],
+        editContact: null,
       }
 
     default: return state;
