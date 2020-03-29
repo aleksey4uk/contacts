@@ -42,7 +42,7 @@ class Contacts extends Component {
           <span>
             <a style={{ marginRight: 16}}
                 onClick={() => this.props.edit(text)}>Изменить</a>
-            <a>Удалить</a>
+            <a onClick={() => this.props.remove(text)}>Удалить</a>
           </span>
         ),
       },
@@ -67,6 +67,7 @@ const mapDispatchToProps = (dispatch) => {
     edit: (payload) => dispatch({type: 'EDIT-CONTACT', payload}),
     load: (payload) => dispatch({type: 'LOAD', payload}),
     complete: () => dispatch({type: 'COMPLETE'}),
+    remove: (payload) => dispatch({type: 'EDIT-CONTACT-REMOVE', payload})
   }
 }
 

@@ -81,6 +81,17 @@ const reducer = (state=initialState, action) => {
         editContact: null,
       }
 
+    case 'EDIT-CONTACT-REMOVE':
+      const idxRemove = state.contacts.findIndex(item=>item.key==action.payload.key);
+
+      return {
+        ...state,
+        contacts: [
+          ...state.contacts.slice(0, idxRemove),
+          ...state.contacts.slice(idxRemove+1)
+        ]
+      }
+
     default: return state;
   }
 }
