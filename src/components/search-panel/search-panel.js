@@ -12,7 +12,7 @@ const SearchPanel = (props) => {
         enterButton="Search"
         size="large"
         onSearch={value => search(value)}
-        /*onChange={(e) => console.log(e.target.value)}*/
+        onChange={(e) => search(e.target.value)}
       />
     </div>
   )
