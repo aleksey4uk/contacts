@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import EditContact from '../edit-contact';
 import { connect } from 'react-redux';
 import hocSwapiServiceContext from '../hoc/hoc-swapi-service';
+import SearchPanel from '../search-panel';
 import './contacts.css';
 
 class Contacts extends Component {
@@ -15,9 +16,10 @@ class Contacts extends Component {
   }
 
   render() {
+    let data;
     if(!this.props.login) return <Redirect to='/login'/>;
     if(this.props.loading) return <h1>Загрузка</h1>
-    const {contacts:data} = this.props;
+    this.props.searchContacts.length >= 1 ? data = this.props.searchContacts : data = this.props.contacts;
     const columns = [
       {
         title: 'Имя',
@@ -49,6 +51,7 @@ class Contacts extends Component {
     ];
     return (
       <div>
+        <SearchPanel search={this.props.search}/>
         <Table columns={columns} dataSource={data} />
         <EditContact />
       </div>
@@ -67,7 +70,8 @@ const mapDispatchToProps = (dispatch) => {
     edit: (payload) => dispatch({type: 'EDIT-CONTACT', payload}),
     load: (payload) => dispatch({type: 'LOAD', payload}),
     complete: () => dispatch({type: 'COMPLETE'}),
-    remove: (payload) => dispatch({type: 'EDIT-CONTACT-REMOVE', payload})
+    remove: (payload) => dispatch({type: 'EDIT-CONTACT-REMOVE', payload}),
+    search: (payload) => dispatch({type: 'SEARCH-CONTACTS', payload})
   }
 }
 

@@ -1,6 +1,7 @@
 const initialState = {
   contacts: [],
   editContact: null,
+  searchContacts: [],
   users:[],
   loading: null,
   login: null,
@@ -44,8 +45,6 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'EDIT-CONTACT':
-      console.log('edit', action.payload);
-
       let idxContact = state.contacts.findIndex(item=>item.name == action.payload.name);
       return {
         ...state,
@@ -53,11 +52,9 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'EDIT-CONTACT-ITEM':
-      console.log('Редактируем контакт', action.payload.target.value);
       let name = action.payload.target.id === 'name' ? action.payload.target.value : state.editContact.name;
       let number = action.payload.target.id === 'number' ? action.payload.target.value : state.editContact.number;
       let email = action.payload.target.id === 'email' ? action.payload.target.value : state.editContact.email;
-      console.log(state.editContact);
       return {
         ...state,
         editContact: {
@@ -69,7 +66,6 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'EDIT-CONTACT-COMPLETE':
-      console.log(state.editContact.key);
       let idxC = state.contacts.findIndex(item=>item.key == state.editContact.key);
       return {
         ...state,
@@ -89,6 +85,14 @@ const reducer = (state=initialState, action) => {
         contacts: [
           ...state.contacts.slice(0, idxRemove),
           ...state.contacts.slice(idxRemove+1)
+        ]
+      }
+
+    case 'SEARCH-CONTACTS':
+      return {
+        ...state,
+        searchContacts: [
+          ...state.contacts.filter((item) => item.name.includes(action.payload)),
         ]
       }
 
