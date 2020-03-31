@@ -88,6 +88,25 @@ const reducer = (state=initialState, action) => {
       }
 
       if(state.editContact.actionType === 'ADD') {
+        if(!state.editContact.number || !state.editContact.name) {
+           return {
+            ...state,
+            editContact: null,
+          }
+        }
+        if(state.editContact.name.toLowerCase().includes(state.searchValues.toLowerCase())) return {
+          ...state,
+          contacts: [
+            ...state.contacts,
+            state.editContact
+          ],
+          searchContacts: [
+            ...state.searchContacts,
+            state.editContact
+          ],
+          editContact: null
+        }
+
         return {
           ...state,
           contacts: [
@@ -97,6 +116,7 @@ const reducer = (state=initialState, action) => {
           editContact: null
         }
       }
+
       return {
         ...state,
         contacts: [
@@ -122,12 +142,18 @@ const reducer = (state=initialState, action) => {
           ...state.searchContacts.slice(searchContIdx + 1),
         ]
       }
+    case 'EDIT-CONTACT-CANCEL':
+      return {
+        ...state,
+        editContact: null,
+      }
 
     case 'SEARCH-CONTACTS':
       return {
         ...state,
+        searchValues: action.payload,
         searchContacts: [
-          ...state.contacts.filter((item) => item.name.toLowerCase().includes(action.payload.toLowerCase()) || item.number.includes(action.payload))
+          ...state.contacts.filter((item) => item.name.toLowerCase().includes(action.payload.toLowerCase()) || item.number.includes(action.payload)),
         ]
       }
 

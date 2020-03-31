@@ -21,13 +21,13 @@ class EditContact extends Component {
     return (
       <div className={classes} id='edit-contact'>
         <Card
-          title="Изменение контакта" /*extra={<a href="#">More</a>}*/
+          title={actionName + ' Контакт'} /*extra={<a href="#">More</a>}*/
           style={{ width: 350}}
           onChange={(e) => this.props.editContactItem(e)}>
           <Input
             id="name"
             className="margin"
-            placeholder={name}
+            placeholder="Имя"
             prefix={<UserOutlined className="site-form-item-icon" />}
             value={name}
 
@@ -35,11 +35,11 @@ class EditContact extends Component {
           <Input
             type="number"
             id="number"
-            placeholder={number}
+            placeholder="Номер"
             className="margin"
             value={number}/>
           <Input
-            placeholder={email}
+            placeholder="Email"
             type="email"
             id="email"
             value={email}/>
@@ -49,7 +49,7 @@ class EditContact extends Component {
               onClick={() => this.props.editComplete()}>{actionName}</Button>
             <Button
               type="primary"
-              onClick={() => this.props.editComplete()}>Закрыть</Button>
+              onClick={() => this.props.editContactCancel()}>Закрыть</Button>
           </div>
         </Card>
       </div>
@@ -67,6 +67,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editContactItem: (payload) => dispatch({type: 'EDIT-CONTACT-ITEM', payload}),
     editComplete: () => dispatch({type: 'EDIT-CONTACT-COMPLETE'}),
+    editContactCancel: () => dispatch({type: 'EDIT-CONTACT-CANCEL'})
   }
 }
 
