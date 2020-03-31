@@ -95,23 +95,7 @@ const reducer = (state=initialState, action) => {
             actionType: null,
           }
         }
-        if(state.searchValues) {
-          if(state.editContact.name.toLowerCase().includes(state.searchValues.toLowerCase())) {
-            return {
-              ...state,
-              contacts: [
-                ...state.contacts,
-                state.editContact
-              ],
-              searchContacts: [
-                ...state.searchContacts,
-                state.editContact
-              ],
-              editContact: null,
-              actionType: null
-            }
-          }
-       }
+
         return {
           ...state,
           contacts: [
@@ -160,6 +144,7 @@ const reducer = (state=initialState, action) => {
       return {
         ...state,
         searchContacts: [],
+        searchValues: null,
       }
     }
       return {
