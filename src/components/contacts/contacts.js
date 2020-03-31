@@ -16,6 +16,7 @@ class Contacts extends Component {
   }
 
   render() {
+    console.log(this.props);
     let data;
     if(!this.props.login) return <Redirect to='/login'/>;
     if(this.props.loading) return <h1>Загрузка</h1>

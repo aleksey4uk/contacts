@@ -45,6 +45,7 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'EDIT-CONTACT':
+    console.log(state.actionType);
       let idxContact = state.contacts.findIndex(item=>item.name == action.payload.name);
       return {
         ...state,
@@ -86,38 +87,39 @@ const reducer = (state=initialState, action) => {
           editContact: null,
         }
       }
-
-      if(state.editContact.actionType === 'ADD') {
+      if(state.actionType === 'ADD') {
         if(!state.editContact.number || !state.editContact.name) {
            return {
             ...state,
             editContact: null,
+            actionType: null,
           }
         }
         if(state.searchValues) {
           if(state.editContact.name.toLowerCase().includes(state.searchValues.toLowerCase())) {
             return {
-            ...state,
-            contacts: [
-              ...state.contacts,
-              state.editContact
-            ],
-            searchContacts: [
-              ...state.searchContacts,
-              state.editContact
-            ],
-            editContact: null
+              ...state,
+              contacts: [
+                ...state.contacts,
+                state.editContact
+              ],
+              searchContacts: [
+                ...state.searchContacts,
+                state.editContact
+              ],
+              editContact: null,
+              actionType: null
+            }
           }
-        }
-      }
-
+       }
         return {
           ...state,
           contacts: [
             ...state.contacts,
-            state.editContact
+            state.editContact,
           ],
-          editContact: null
+          editContact: null,
+          actionType: null
         }
       }
 
@@ -129,6 +131,7 @@ const reducer = (state=initialState, action) => {
           ...state.contacts.slice(idxC+1)
         ],
         editContact: null,
+        actionType: null,
       }
 
     case 'EDIT-CONTACT-REMOVE':
@@ -153,6 +156,12 @@ const reducer = (state=initialState, action) => {
       }
 
     case 'SEARCH-CONTACTS':
+    if(action.payload.length<=0) {
+      return {
+        ...state,
+        searchContacts: [],
+      }
+    }
       return {
         ...state,
         searchValues: action.payload,
@@ -166,9 +175,9 @@ const reducer = (state=initialState, action) => {
         ...state,
         editContact: {
           ...state.editContact,
-          key: state.contacts.length + 1,
-          actionType: 'ADD'
-        }
+          key: state.contacts.length + 1 + '',
+        },
+        actionType: 'ADD',
       }
 
     default: return state;

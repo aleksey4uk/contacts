@@ -15,7 +15,7 @@ class EditContact extends Component {
       name = this.props.editContact.name;
       number = this.props.editContact.number;
       email = this.props.editContact.email;
-      actionName = this.props.editContact.actionType === 'ADD' ? "Добавить" : "Изменить";
+      actionName = this.props.actionType === 'ADD' ? "Добавить" : "Изменить";
     }
     const {edit} = this.props;
     return (
