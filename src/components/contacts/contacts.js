@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Table, Tag } from 'antd';
+import { Table, Tag, Button } from 'antd';
 import { Redirect } from 'react-router-dom';
 import EditContact from '../edit-contact';
+import AddContact from '../add-contact';
 import { connect } from 'react-redux';
 import hocSwapiServiceContext from '../hoc/hoc-swapi-service';
 import SearchPanel from '../search-panel';
@@ -52,8 +53,13 @@ class Contacts extends Component {
     return (
       <div>
         <SearchPanel search={this.props.search}/>
+        <Button
+          block
+          className="button-block"
+          onClick={()=>this.props.add()}>Добавить контакт</Button>
         <Table columns={columns} dataSource={data} />
         <EditContact />
+
       </div>
     )
   }
@@ -71,7 +77,8 @@ const mapDispatchToProps = (dispatch) => {
     load: (payload) => dispatch({type: 'LOAD', payload}),
     complete: () => dispatch({type: 'COMPLETE'}),
     remove: (payload) => dispatch({type: 'EDIT-CONTACT-REMOVE', payload}),
-    search: (payload) => dispatch({type: 'SEARCH-CONTACTS', payload})
+    search: (payload) => dispatch({type: 'SEARCH-CONTACTS', payload}),
+    add: () => dispatch({type: 'ADD-CONTACT'}),
   }
 }
 

@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import './edit-contact.css';
+import '../edit-contact/edit-contact.css';
 import { connect } from 'react-redux';
 import { Card, Button } from 'antd'
 import { Input, Tooltip } from 'antd';
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 
-class EditContact extends Component {
+class AddContact extends Component {
 
   render() {
-    let name, number, email, actionName;
+    console.log(this.props);
+    return <h1>Добавление контакта</h1>
+/*    let name, number, email;
     let classes = 'edit-contact ';
     if(this.props.editContact) {
       classes+= 'yes';
       name = this.props.editContact.name;
       number = this.props.editContact.number;
       email = this.props.editContact.email;
-      actionName = this.props.editContact.actionType === 'ADD' ? "Добавить" : "Изменить";
     }
     const {edit} = this.props;
     return (
       <div className={classes} id='edit-contact'>
         <Card
           title="Изменение контакта" /*extra={<a href="#">More</a>}*/
-          style={{ width: 350}}
+/*          style={{ width: 350}}
           onChange={(e) => this.props.editContactItem(e)}>
           <Input
             id="name"
@@ -46,7 +47,7 @@ class EditContact extends Component {
           <div className="btn">
             <Button
               type="primary"
-              onClick={() => this.props.editComplete()}>{actionName}</Button>
+              onClick={() => this.props.editComplete()}>Изменить</Button>
             <Button
               type="primary"
               onClick={() => this.props.editComplete()}>Закрыть</Button>
@@ -54,6 +55,7 @@ class EditContact extends Component {
         </Card>
       </div>
     )
+*/
   }
 }
 
@@ -70,4 +72,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditContact);
+export default connect(mapStateToProps, mapDispatchToProps)(AddContact);

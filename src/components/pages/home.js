@@ -9,11 +9,7 @@ class HomePage extends Component {
     if(!this.props.login) {
       return <Redirect to="/login"/>
     }
-    return (
-      <div className="home">
-        <Contacts/>
-      </div>
-    )
+    return <Redirect to="/contacts"/>
   }
 }
 

@@ -1,6 +1,8 @@
 @import '~antd/dist/antd.css';
 
-.app {
+
+.button-block {
+  margin-top: -1px;
 }
 
 .forms {
